@@ -8,7 +8,7 @@
 6. 商品评价
 ## 技术栈
 1. webpack-cli搭建项目
-2. vue全家桶（vue+vuex+vue-router）
+2. vue全家桶（vue+vuex+vue-router）+vant组件库
 3. axios交互
 4. 第三方支付（支付宝、微信）
 5. better-scroll滚动
