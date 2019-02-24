@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import mainpage from '@/components/mainpage'
 import login from '@/components/login'
 import register from '@/components/register'
+import setting from '@/components/setting'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/mainPage',
       name: 'mainpage',
       component: mainpage
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: setting
     }
   ]
 })

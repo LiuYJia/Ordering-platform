@@ -1,0 +1,10 @@
+{
+  "resultCode":200,
+  "resultJson":{
+    "id":1,
+    "shopName":"够味",
+    "postTypeAndtime":"美团专送/30分钟",
+    "discount":"满20减5"
+  },
+  "resultMessage":"success"
+}

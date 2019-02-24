@@ -65,7 +65,7 @@ export default {
 
 <style>
 #login{
-  background-image: url(../assets/login.jpg);
+  background-image: url(../assets/images/login.jpg);
   background-size: 100% 100%;
   height: 100vh;
   width: 100vw;

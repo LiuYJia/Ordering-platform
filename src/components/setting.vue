@@ -4,7 +4,7 @@
         
         <div id="mainPage">
             <van-nav-bar
-            title="商品列表"
+            title="个人中心"
             left-text="注销登录"
             left-arrow
             @click-left="onClick"
