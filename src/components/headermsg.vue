@@ -17,6 +17,12 @@
                 </svg>&nbsp;{{msg.discount}}</p>
             </div>
         </div>
+        <van-notice-bar
+                :text=notice
+                left-icon="volume-o"
+                color="#f60"
+                background=""
+            />
     </div>
   
 </template>
@@ -31,15 +37,19 @@ export default {
         return{
             username:'',
             password:'',
-            msg:''
+            msg:'',
+            notice:'111'
         }
     },
     created(){
         axios.get('static/data.json').then((res) => {
-            console.log(res)
+            
+            this.notice = res.data.resultJson.notice
+            console.log(this.notice);
             this.msg = res.data.resultJson
         })
     },
+    
     methods:{
         
     }
@@ -79,6 +89,9 @@ export default {
     height: 100%;
     width: 100%;
     border: 1px solid gray;    
+}
+#headerMsg .van-notice-bar{
+    margin-top: 25vh;
 }
 #headerMsg .center{
     position: absolute;

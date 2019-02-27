@@ -4,7 +4,8 @@
     "id":1,
     "shopName":"够味",
     "postTypeAndtime":"美团专送/30分钟",
-    "discount":"满20减5"
+    "discount":"满20减5",
+    "notice":"本店优惠不可叠加，本店优惠不可叠加，本店优惠不可叠加，本店优惠不可叠加。"
   },
   "resultMessage":"success"
 }
