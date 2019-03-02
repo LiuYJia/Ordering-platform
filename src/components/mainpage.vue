@@ -14,7 +14,7 @@
             
             <van-tabs>
                 <van-tab title="商品">
-                    
+                    <goodsList />
                 </van-tab>
                 <van-tab title="评论">
                     <comment />

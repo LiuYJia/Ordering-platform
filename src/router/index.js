@@ -6,6 +6,7 @@ import register from '@/components/register'
 import setting from '@/components/setting'
 import order from '@/components/order'
 import orderdetail from '@/components/orderDetail'
+import shopcar from '@/components/shopcar'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
       path: '/orderdetail',
       name: 'orderdetail',
       component: orderdetail
+    },
+    {
+      path: '/shopcar',
+      name: 'shopcar',
+      component: shopcar
     },
     {
       path: '/login',

@@ -42,10 +42,8 @@ export default {
         }
     },
     created(){
-        axios.get('static/data.json').then((res) => {
-            
+        axios.get('static/data.json').then((res) => {            
             this.notice = res.data.resultJson.notice
-            console.log(this.notice);
             this.msg = res.data.resultJson
         })
     },
