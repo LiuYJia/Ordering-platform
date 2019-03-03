@@ -57,6 +57,9 @@ export default {
         onClick(){
             console.log(1);
             this.$router.push('/login')
+        },
+        kkk(e){
+            console.log(e.x,e.y);
         }
     }
 }

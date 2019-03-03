@@ -10,10 +10,10 @@
         </div>
         <div class="right" ref="right">
             <ul>
-                <li v-for="item in right" class="right-item right-item-hook">
+                <li v-for="(item,index1) in right" class="right-item right-item-hook">
                     <h3>{{item.name}}</h3>
                     <ul>
-                        <li v-for="obj in item.content">
+                        <li v-for="(obj,index2) in item.content">
                             <div class="goodmsg">
                                 <img src="http://localhost:8080/static/img/gouwei.a14b144.jpg" alt="">    
                                 <div class="msg">
@@ -21,9 +21,9 @@
                                     <p>{{obj.dis}}</p>
                                 </div>
                                 <div class="add">
-                                    <div :class="{pop: true, mov: obj.num>0}" @click="reducegoods(obj.num)" class="reducegoods"><span class="iconfont">&#xe64b;</span></div>
-                                    <div class="goodsnum">{{obj.num}}</div>
-                                    <div @click="addgoods(obj.num)" class="addgoods"><span class="iconfont">&#xe65e;</span></div>
+                                    <div :class="{pop: true, mov: obj.num>0}" @click="reducegoods(obj,index1,index2)" class="reducegoods"><span class="iconfont">&#xe64b;</span></div>
+                                    <div class="goodsnum" :class="{isNum: true, notNum: obj.num>0}">{{obj.num}}</div>
+                                    <div @click="addgoods(obj,index1,index2,$event)" class="addgoods"><span class="iconfont">&#xe65e;</span></div>
                                 </div>
                             </div>
                         </li>
@@ -31,8 +31,56 @@
                 </li>
             </ul>
         </div>
-        <div class="shopcar" @click="goShopcar">
-            <van-icon name="shopping-cart-o" />
+        <!-- 运动的小球 -->
+        <div id="points">
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+            <div class="pointOuter pointPre">
+                <div class="point-inner"></div>
+            </div>  
+        </div>
+        <!-- 购物车 -->
+        <div class="shopcar" @click="goShopcar">                       
+            <div class="iconcar">
+                <van-icon name="shopping-cart-o" />
+                <p class="badge">{{allnum}}</p>
+            </div>
+            
+            <div class="shopbtn"><van-button type="info">购物车</van-button></div>
         </div>
     </div> 
 </template>
@@ -49,16 +97,20 @@ export default {
         return{
             left:['推荐','热销','折扣','主食','饮料'],
             right:[
-                {'name':'推荐',content:[{id:1,name:'111',dis:'good',num:''},{id:2,name:'222',dis:'bad',num:''}]},
-                {'name':'热销',content:['333','444']},
-                {'name':'折扣',content:['555','666']},
-                {'name':'主食',content:['777','888']},
-                {'name':'饮料',content:['999','000','999','000','999','000','999','000','999','000']}
+                {'name':'推荐',content:[{id:1,name:'111',dis:'good',num:'0'},{id:2,name:'222',dis:'bad',num:'0'}]},
+                {'name':'热销',content:[{id:3,name:'333',dis:'good',num:'0'},{id:4,name:'444',dis:'bad',num:'0'}]},
+                {'name':'折扣',content:[{id:5,name:'555',dis:'good',num:'0'},{id:6,name:'666',dis:'bad',num:'0'}]},
+                {'name':'主食',content:[{id:7,name:'777',dis:'good',num:'0'},{id:8,name:'888',dis:'bad',num:'0'}]},
+                {'name':'饮料',content:[{id:9,name:'999',dis:'good',num:'0'},{id:10,name:'101',dis:'bad',num:'0'},
+                {id:11,name:'1111',dis:'good',num:'0'},{id:12,name:'1212',dis:'bad',num:'0'},
+                {id:13,name:'1313',dis:'good',num:'0'},{id:14,name:'1414',dis:'bad',num:'0'},
+                {id:15,name:'1515',dis:'good',num:'0'},{id:16,name:'1616',dis:'bad',num:'0'}]}
             ],
             listHeight:[],
             scrollY:0,
             clickEvent:false,
-            goodsnum:''
+            goodsnum:'',
+            allnum:0,
         }
     },
     created(){
@@ -89,33 +141,46 @@ export default {
         }
     },
     watch:{
-        goodsnum:{
-            handler:function(val,oldval){
-                console.log(1222);
-                if(val==0){
-                    
-                    $('#goodsList .goodsnum').css('opacity','0')
-                }else{
-                    $('#goodsList .goodsnum').css('opacity','1')
-                }
-            }
-        }
+        
     },
     methods:{
         goShopcar(){
             this.$router.push('/shopcar');
         },
-        addgoods(d){               
-            d++;
-            this.goodsnum = d; 
-            console.log(d);
+        addgoods(obj,index1,index2,event){          
+            obj.num++;  
+            this.allnum++;
+            // 小球动画 
+            var top = event.clientY-window.innerHeight/2.5,// 小球降落起点
+                left = event.clientX,
+                endTop = window.innerHeight-90,  // 小球降落终点
+                endLeft = 100; 
+            // 小球到达起点并去掉小球的display: none;
+            var outer = $('#points .pointPre').first().removeClass("pointPre").css({
+                left: left + 'px',
+                top: top + 'px',
+            });
+            var inner = outer.find(".point-inner"); 
+ 
+            setTimeout(function() { 
+                // 将jquery对象转换为DOM对象
+                outer[0].style.webkitTransform = 'translate3d(0,' + (endTop - top) + 'px,0)';
+                inner[0].style.webkitTransform = 'translate3d(' + (endLeft - left) + 'px,0,0)';
+                
+                // 小球运动完毕恢复到原点
+                setTimeout(function() {
+                    outer.removeAttr("style").addClass("pointPre");
+                    inner.removeAttr("style");
+                }, 1000);  //这里的延迟值和小球的运动时间相关
+            }, 0);         
         },
-        reducegoods(d){            
-            d--;
-            this.goodsnum = d; 
-            if(d<0){
-                d=0;
+        reducegoods(obj,index1,index2){            
+            obj.num--;
+            this.allnum--;
+            if(obj.num<0){
+                obj.num=0;
             }
+            console.log(obj.num);  
 
         },
         _initScroll(){
@@ -167,36 +232,62 @@ export default {
 .pop {
     display: inline-block;
     position: relative;
-    left: 48px;
     opacity: 0;
+    right: -50vw;
     transition: all ease .5s;
 }
 .mov {
-    left: 0;
+    right: 0;
+    opacity: 1;
+}
+.isNum{
+    opacity: 0;
+}
+.notNum{
     opacity: 1;
 }
 #goodsList .left{
     flex: 1;
     background: #eee;
+    height: calc(67vh - 130px - 5vh);
 }
 #goodsList .shopcar{
-    height: 10vh;
-    width: 10vh;
+    height: 5vh;
+    width: 100vw;
     background-color: whitesmoke;
-    position: fixed;
-    right: 0;
-    bottom: 10vh;
-    border: 1px solid gray;
-    border-radius: 120px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+}
+#goodsList .shopcar .iconcar{
+    flex: 2;
+    text-align: center;  
     display: flex;
     align-items: center;
-    justify-items: center;
-    text-align: center;
-    
+    justify-content: center;  
 }
-#goodsList .shopcar i{
-    font-size: 40px;
-    margin: 0 auto;
+#goodsList .shopcar .iconcar p{
+    width: 20px;
+    position: relative;
+    left: -10px;
+    top: -2vh;
+    background: red;
+    color: white;
+    border-radius: 50px;
+}
+#goodsList .shopcar .iconcar i{
+    font-size: 27px;
+    border: 1px solid #1989fa;
+    color: #1989fa;
+}
+#goodsList .shopcar .shopbtn{
+    flex: 1;
+    text-align: right
+}
+#goodsList .shopcar .shopbtn button{
+    height: 5vh;
+    line-height: 5vh;
+    width: 100%;
 }
 #goodsList .left li{
     width: 100%;
@@ -216,6 +307,7 @@ export default {
 }
 #goodsList .right{
     flex: 4;
+    height: calc(67vh - 130px - 5vh);
 }
 #goodsList .right img{
     height: 10vh;
@@ -235,6 +327,10 @@ export default {
     flex-wrap: wrap;
     justify-content: center;
 }
+#goodsList .goodmsg .msg p{
+    width: 100%;
+    text-align: center;
+}
 #goodsList .goodmsg .add{
     flex: 2;
     display: flex;
@@ -247,6 +343,7 @@ export default {
 #goodsList .goodmsg .addgoods,.reducegoods,.goodsnum{
     flex: 1;
     font-size: 20px;
+    text-align: center;
 }
 
 #goodsList .right h3{
@@ -260,5 +357,26 @@ export default {
     background: white;
     padding-left: 20px;
 }
+/* 运动小球 */
+.pointPre {  /* 动画的小球 */
+    display: none;
+}
+.pointOuter {
+    position: absolute;  
+    z-index: 114;  
+    /* 当小球抛出时遵循贝塞尔曲线过渡 */
+    -webkit-transition: all 1s cubic-bezier(0.39,-0.4,0.83,0.23) 0s;
+    transition: all 1s cubic-bezier(0.39,-0.4,0.83,0.23) 0s; 
+}
+
+.point-inner {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #00a0dc;
+    /* 过渡属性名称 过渡时间 过渡曲线 延迟时间 */
+    transition: all 1s ease 0s;
+    -webkit-transition: all 1s ease 0s;     
+}  
 </style>
 
