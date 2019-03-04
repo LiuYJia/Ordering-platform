@@ -66,7 +66,6 @@ export default {
     },
     methods:{
         onClick(){
-            console.log(1);
             this.$router.push('/order')
         }
     }

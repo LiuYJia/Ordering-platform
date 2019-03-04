@@ -64,11 +64,9 @@ export default {
     },
     methods:{
         onClick(){
-            console.log(1);
             this.$router.push('/login')
         },
         clickDetail(d){
-            console.log(d);
             this.$router.push('/orderdetail')
         },
         clickDelete(d){

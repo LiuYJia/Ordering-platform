@@ -180,8 +180,6 @@ export default {
             if(obj.num<0){
                 obj.num=0;
             }
-            console.log(obj.num);  
-
         },
         _initScroll(){
             this.lefts = new BetterScroll(this.$refs.left,{

@@ -51,7 +51,7 @@ export default {
 
     },
     mounted(){
-        console.log($('#headermsg').height());
+        
     },
     methods:{
         onClick(){

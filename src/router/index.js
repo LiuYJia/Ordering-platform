@@ -7,6 +7,7 @@ import setting from '@/components/setting'
 import order from '@/components/order'
 import orderdetail from '@/components/orderDetail'
 import shopcar from '@/components/shopcar'
+import persondata from '@/components/persondata'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: order
+    },
+    {
+      path: '/persondata',
+      name: 'persondata',
+      component: persondata
     },
     {
       path: '/orderdetail',

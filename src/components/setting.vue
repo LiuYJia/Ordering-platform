@@ -8,7 +8,10 @@
             @click-left="onClick"
             />
             
-            <img class="user-poster" src="https://img.yzcdn.cn/public_files/2017/10/23/8690bb321356070e0b8c4404d087f8fd.png">
+            <div class="user-poster">
+                <img src="" alt="head" class="headimg"/>
+            </div>
+            
             <van-row class="user-links">
                 <van-col span="8">
                     <van-icon name="pending-payment" />
@@ -29,7 +32,7 @@
             </van-cell-group>
 
             <van-cell-group>
-                <van-cell icon="points" title="个人资料" is-link />
+                <van-cell icon="points" title="个人资料" is-link @click="godata"/>
                 <van-cell icon="gold-coin-o" title="优惠券" is-link />
                 <van-cell icon="gift-o" title="可用积分" is-link />
             </van-cell-group>
@@ -57,6 +60,9 @@ export default {
     methods:{
         onClick(){
             this.$router.push('/login')
+        },
+        godata(){
+            this.$router.push('/persondata')
         }
     }
 }
@@ -66,9 +72,6 @@ export default {
     height: 100vh;
     width: 100vw;
 }
-#setting img{
-    height: 40vh;
-}
 #setting .van-col{
     text-align: center;
 }
@@ -76,6 +79,24 @@ export default {
     height: 10vh;
     display: flex;
     align-items: center;
+}
+#setting .user-poster{
+    background-image: url('../assets/images/gouwei.jpg');
+    background-size:100vw 40vh;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 40vh;
+    position: relative;
+}
+#setting .headimg{
+    background-color: skyblue;
+    height: 30vw;
+    width: 30vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
 }
 </style>
 
