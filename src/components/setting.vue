@@ -15,26 +15,26 @@
             <van-row class="user-links">
                 <van-col span="8">
                     <van-icon name="pending-payment" />
-                    待付款
+                    全部订单
                 </van-col>
                 <van-col span="8">
                     <van-icon name="records" />
-                    待接单
+                    已支付
                 </van-col>
                 <van-col span="8">
                     <van-icon name="bill-o" />
-                    已支付
+                    未完成
                 </van-col>
             </van-row>
 
             <van-cell-group class="user-group">
-                <van-cell icon="records" title="全部订单" is-link />
+                <!-- <van-cell icon="records" title="全部订单" is-link /> -->
             </van-cell-group>
 
             <van-cell-group>
                 <van-cell icon="points" title="个人资料" is-link @click="godata"/>
                 <van-cell icon="gold-coin-o" title="优惠券" is-link />
-                <van-cell icon="gift-o" title="可用积分" is-link />
+                <van-cell icon="gift-o" title="反馈" is-link />
             </van-cell-group>
 
 

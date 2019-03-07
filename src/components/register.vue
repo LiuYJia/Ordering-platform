@@ -20,11 +20,18 @@
                     left-icon="contact"
                 />
                 <van-field
-                    v-model="password"
+                    v-model="password1"
                     label="密码"
                     type="password"
                     left-icon="bag-o"
                     placeholder="请输入密码"
+                />
+                <van-field
+                    v-model="password2"
+                    label="确认密码"
+                    type="password"
+                    left-icon="bag-o"
+                    placeholder="再次输入密码"
                 />
             </van-cell-group>
         </div>
@@ -43,7 +50,8 @@ export default {
     data(){
         return{
             username:'',
-            password:''
+            password1:'',
+            password2:''
         }
     },
     created(){
